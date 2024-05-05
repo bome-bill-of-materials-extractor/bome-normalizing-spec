@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Bome",
+  "description": "The BOME schema to hold SBOM data",
+  "type": "object",
+  "properties": {
+    "metadata": {
+      "name": {
+        "type": "string",
+        "description": "The name of the software."
+      },
+      "date": {
+        "type": "string",
+        "description": "The date/time of the most recent update in iso 8601 date format."
+      },
+      "repo_url": {
+        "type": "string",
+        "description": "The url to the repository"
+      }
+    },
+    "app_dependencies": {
+      "type": "array",
+      "description": "A list of dependencies for the software",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the dependency"
+          },
+          "version": {
+            "type": "string",
+            "description": "The version of the dependency"
+          }
+        }
+      }
+    },
+    "os_dependencies": {
+      "type": "array",
+      "description": "A list of dependencies for the OS the software is running on. ex: Docker/VMs, etc",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the dependency"
+          },
+          "version": {
+            "type": "string",
+            "description": "The version of the dependency"
+          }
+        }
+      }
+    },
+    "vulnerabilities": {
+      "type": "array",
+      "description": "A list of vulnerabilities found in the software",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The id of the vulnerability. Could be the CVE/CWE/etc"
+          },
+          "rating": {
+            "type": "string",
+            "enum": ["Critical", "High", "Medium", "Low"],
+            "description": "The rating of the vulnerability."
+          },
+          "url": {
+            "type": "string",
+            "description": "A link to get more information on the vulnerability"
+          },
+          "description": {
+            "type": "string",
+            "description": "A short description of the vulnerability"
+          },
+          "source": {
+            "type": "string",
+            "description": "The tool used to find this vulnerability"
+          },
+          "context": {
+            "type": "string",
+            "enum": ["not_affected", "affected", "fixed", "under_investigation"],
+            "description": "The current status of the vulnerabilities. See https://www.cisa.gov/sites/default/files/2023-01/VEX_Use_Cases_Aprill2022.pdf"
+          }
+        }
+      }
+    }
+  }
+}
